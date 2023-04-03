@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+
+option go_package = "cmd/api/leaderboard";
+
+service LeaderBoardService {
+  rpc Endgame(EndgameRequest) returns (EndgameResponse) {
+		option (google.api.http) = {
+			post: "/api/v1/endgame"
+			body: "*"
+		};
+	}
+  rpc LeaderBoard(LeaderBoardRequest) returns (LeaderBoardResponse) {}
+}
+
+
+message EndgameRequest {
+  double score = 1;
+}
+
+message EndgameResponse {
+  string status = 1;
+  string timestamp = 2;
+}
+
+message LeaderBoardRequest {}
+
+message LeaderBoardResponse {
+	string status = 1;
+  string timestamp = 2;
+  repeated Result result = 3;
+}
+
+message Result {
+  google.protobuf.Int64Value id = 1;
+	string username = 2;
+	double score = 3;
+}

@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+
+option go_package = "cmd/api/user";
+
+service UserService {
+  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse) {}
+  rpc LoginUser(LoginUserRequest) returns (LoginUserResponse) {}
+}
+
+
+message RegisterUserRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message RegisterUserResponse {
+  string status = 1;
+  string timestamp = 2;
+  UserData result = 3;
+}
+
+message UserData {
+  google.protobuf.Int64Value id = 1;
+  string username = 2;
+  string password = 3;
+}
+
+message LoginUserRequest {
+	string username = 1;
+	string password = 2;
+}
+
+message LoginUserResponse {
+	string status = 1;
+  string timestamp = 2;
+  ResultData result = 3;
+}
+
+message ResultData {
+  string username = 1;
+	string password = 2;
+	string jwt = 3;
+}
